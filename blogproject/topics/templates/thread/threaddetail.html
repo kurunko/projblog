@@ -1,0 +1,385 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{article.title}} - {{article.category }} | Portal Ongame
+{% endblock title %}
+{% block head %}
+
+
+	 <style>
+.post-item .text h1 a:after, .post-item .text h1 span:after {
+    position: absolute;
+    content: '';
+    left: 0px;
+    top: 2px;
+    background: #db2e1c;
+    width: 3px;
+    height: 17px;
+}
+ul.breadcrumb {
+    background-color: transparent;
+    margin-top: 20px;
+    font-size: 12px;
+    color: black;
+}
+ul.breadcrumb > li > a {
+    background-color: transparent;
+    margin-top: 20px;
+    font-size: 12px;
+    color: black;
+}
+.post-area .post-info{ position: relative; padding: 30px 0; }
+
+.post-area .post-info .left-area{ height: 70px; width: 70px; border-radius: 100px; overflow: hidden; position: absolute;
+	top: 50%; margin-top: -35px; border: 1px solid #fff; box-shadow: 0px 0px 5px rgba(0,0,0,.3); }
+
+.post-area .post-info .middle-area{ padding-left: 90px; display: inline-block; }
+.article-author-profile-image {
+    width: 50px;
+   height: 50px;
+   max-width: 50px;
+   max-height: 50px;
+   object-fit: cover;
+  }
+  img.article-author-profile-image {
+    border-radius: 35px;
+}
+.google-auto-placed {
+
+    display: none;
+}
+  .card-body > h2 > a, .title-v1 > h3 {
+    display: inline-block;
+    width: 100%;
+    padding-left: 10px;
+    position: relative;
+    color: black;
+    transition: all 0.5s ease 0s;
+    font: 400 30px/32px "Oswald";
+  }
+  .card-body > h2 > a {
+
+	border-left: 10px red solid;
+    padding-left: 10px;
+  }
+  .tag > p > i {
+    padding: 0 8px;
+  }
+  .tag > a > i {
+    padding: 0 8px;
+  }
+  .article-author-profile-image {
+    width: 50px;
+    height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: cover;
+  }
+  img.article-author-profile-image {
+    border-radius: 35px;
+  }
+.google-auto-placed {
+
+    display: none;
+}
+
+.tag-item > i {
+    margin: 0 10px;
+}
+.tag-item > a > i {
+    margin: 0 10px;
+}
+.tag {
+    font-size: 12px;
+}
+.titulo-artigo {
+    font: 400 36px/36px "Oswald";
+    border-left: 10px orange solid;
+    margin: 30px;
+    padding-left: 10px;
+}
+.artigo-lista {
+
+    padding: 10px 0;
+}
+
+.box-user > .box {
+  border-bottom: 1px solid #d7d7d7;
+  display: inline-block;
+  width: 100%;
+}
+
+.box-user > .box > .avatar {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #db2e1c;
+  border-radius: 50%;
+  float: left;
+  margin-right: 20px;
+}
+
+.box-user > .box > .avatar > img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.box-user > .box > .text {
+  font-family: "TXGR";
+}
+
+.box-user > .box > .text > h3 {
+  text-transform: capitalize;
+  color: #333333;
+  font-size: 16px;
+}
+
+.box-user > .box > .text > p {
+  font-size: 14px;
+  color: #666;
+}
+.box-user .box {
+  background: #fafafa;
+  border: 1px solid #efefef;
+  display: table;
+  padding: 15px;
+}
+.box-user .avatar {
+  width: 120px;
+  display: table-cell;
+  vertical-align: middle;
+  background: #fff;
+  padding: 5px;
+  border: 1px solid #efefef;
+}
+
+.box-user .text {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 20px;
+}
+
+.box-user h3 {
+  font: 700 18px/20px "Oswald";
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.box-user h3 span {
+  color: #db2e1c;
+  vertical-align: bottom;
+  margin-left: 5px;
+  font-size: 13px;
+}
+
+.box-user p {
+  font: 400 14px/18px "Lato";
+  color: #a3a3a3;
+  margin-bottom: 5px;
+}
+
+.box-user .social a:first-child {
+  padding-left: 0px;
+}
+
+.box-user .social i {
+  font-size: 18px;
+  color: #959595;
+}
+  .box-user .avatar, .box-user .text {
+    display: inline-block;
+    width: auto;
+    padding: 0px;
+  }
+  .box-user .text {
+
+    padding: 10px;
+  }
+  .box-user .avatar {
+    margin-bottom: 30px;
+  }
+  .box {
+  display: inline-block;
+  width: 100%;
+}
+.tag-cat {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #efefef;
+}
+
+.tag-cat span {
+  display: inline-block;
+  color: #fff;
+  background: #000;
+  font: 400 14px/20px "Oswald";
+  padding: 0 15px;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  height: 20px;
+  margin-right: 15px;
+}
+
+.tag-cat a {
+  font: 400 15px/20px "Lato";
+}
+  .artigos-semelhantes > .text > h2 {
+    display: inline-block;
+    width: 100%;
+    padding-left: 10px;
+    position: relative;
+    color: black;
+    transition: all 0.5s ease 0s;
+    font: 400 30px/32px "Oswald";
+    padding-left: 10px;
+  }
+    .artigos-semelhantes > .text > .tag > .date  {
+    display: inline-block;
+    width: 100%;
+    padding-left: 10px;
+    position: relative;
+    color: black;
+    transition: all 0.5s ease 0s;
+
+  }
+
+</style>
+   {% endblock head %}
+    
+
+{% block body %}
+{% load static %}
+<a href="{% url 'threads:threadList'%}">Voltar</a>
+        <div class="container space-20 space-padding-tb-20">
+             <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item">{{article.game}}</li>
+                <li class="breadcrumb-item">{{article.category}}</li>
+                <li class="breadcrumb-item active"><a href="#">{{article.title}}</a></li>
+            </ul>
+        </div>
+			<div class="container">
+            <div class="row">
+                
+                <div class="col-md-8">
+				<h1 class='titulo-artigo'><span style="color:orange;margin:0 15px;">{{article.category}}</span>{{article.title}}</h1>
+                    <div class="single-post">
+                        <div class="blog-post-item cat-1 box">
+
+                            <div class="content">
+
+                                
+
+                                        <div class="col-xs-12" style="margin-bottom: 10px;">
+                                            <a class="avatar" href="#">
+                                                <img src="{{ article.author.image.url }}" alt="Profile Image" class="article-author-profile-image"></a>
+                                                Por <a class="name" href="#">
+                                                    <b>{{ article.author.get_full_name }}</b></a>
+                                        </div><!-- post-info -->
+                                <div class="tag">
+											<div class="container-fluid">
+												<div class="row">
+													<p class="tag-item">
+														<i class="fab fa-readme"></i>{{ article.read_time }} min{{ article.read_time|pluralize }} 
+														<span> / </span>
+														<i class="far fa-eye"></i>{{ article.views }} vezes
+														<span>/</span>
+														<i class="far fa-clock"></i>Há {{article.date_published|timesince }} 
+														<span>  /</span>
+														<a class="tag-link" href="#" title="comments"><i class="fa fa-comments"></i>{{ article.comments.count }} comentários </a>
+													</p>
+												</div>
+											</div>
+										</div>
+                                <div class="tag-compartilhar">
+                                    
+
+                                        <a href="mailto:?subject={{ article.title }}&amp;body=Confira esse artigo {{ request.build_absolute_uri }}" target="_blank">
+                                            <button type="button" class="btn btn-primary" style="background-color: #b3b3b3; height: 30px; font-size: 10px; border: 0px;"><i class="fas fa-envelope-open-text"></i> | Compartilhar via email</button>
+                                        </a>
+
+                                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}"  target="_blank">
+                                            <button type="button" class="btn btn-primary" style="background-color: #0a66c2; height: 30px; font-size: 10px; border: 0px;"><i class="fab fa-linkedin"></i> | Compartilhar no LinkedIn</button>
+                                        </a>
+
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank">
+                                            <button type="button" class="btn btn-primary" style="background-color: #0b86ee; height: 30px; font-size: 10px; border: 0px;"><i class="fab fa-facebook-square"></i> | Compartilhar no Facebook</button>
+                                        </a>
+
+                                        <a href="http://twitter.com/share?text={{ article.title }}. &url={{ request.build_absolute_uri }}" target="_blank">
+                                            <button type="button" class="btn btn-primary" style="background-color: #1da1f2; height: 30px; font-size: 10px; border: 0px;"><i class="fab fa-twitter-square"></i> | Compartilhar no Twitter</button>
+                                        </a>
+
+                                        <a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank">
+                                            <button type="button" class="btn btn-primary" style="background-color: #06d755; height: 30px; font-size: 10px; border: 0px;"><i class="fab fa-whatsapp-square"></i> | Compartilhar no Whatsapp</button>
+                                        </a>
+
+                                        <a href="https://telegram.me/share/url?url={{ request.build_absolute_uri }}&text={{ article.title }}" target="_blank">
+                                            <button type="button" class="btn btn-primary" style="background-color: #28a8ea; height: 30px; font-size: 10px; border: 0px;"><i class="fab fa-telegram"></i> | Compartilhar no Telegram</button>
+                                        </a>
+<hr />
+                                {{ article.message | safe }}
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <!-- End signle-post -->
+					<hr>
+									<h1 class='titulo-artigo'>COMENTÁRIOS</h1>
+                  {% if user.is_authenticated%}
+                  <form method="post">
+				{% if form.errors %}
+					<div class="alert alert-danger" role="alert">
+					Há erros no seu formulário. Revise-os e tente novamente. 
+					{{ form.non_field_errors }}
+					{% for hidden_field in form.hidden_fields %}
+								  {{ hidden_field.errors }}
+								  {{ hidden_field }}
+								{% endfor %}
+					</div>
+				{% endif %}
+				{% csrf_token %}
+				{{comment_form}}
+				<button class="w-100 btn btn-lg btn-primary" type="submit">Postar Comentário</button>
+				
+			</form>
+                  
+                  {% else %}
+                  Você precisa estar logado para comentar nessa publicação. <a href="{% url 'accounts:login'%}?next={{ request.path }}">Entre em sua conta agora mesmo</a> <a href="{% url 'accounts:register'%}">Criar conta</a>
+                  {% endif %}
+            				{% for comment in comments  %}
+                    <div class="box-user space-padding-tb-40">
+                        <div class="box">
+                            
+                                {% if comment.author.image %}
+                                <div class="avatar" style="background-image:url('{{ comment.author.image.url }}');background-position: center;background-repeat: no-repeat;background-size: cover;"></div>
+                                {% else %}
+                                <div class="avatar" style="background-image:url('https://aika.ongame.net/static/img/aika/wallpapers/11.jpg');background-position: center;background-repeat: no-repeat;background-size: cover;"></div>
+                                {% endif %}
+                            
+                            <div class="text">
+                                <a href="#"><h3>{{ comment.author.get_full_name }}</h3></a>
+                                <p>{{comment.comment}}</p>
+                                <div class="social">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End box-user -->
+                    {% endfor %}
+
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+{% endblock body %}
+    
