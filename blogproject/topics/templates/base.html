@@ -1,0 +1,108 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+{% load static %}
+    <base href="">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}"/>.
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}{% endblock %}</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" content="text/html; charset=utf-8" />
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+
+
+    {% block head%}
+    {% endblock head%}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
+    <style>
+        .container-fluid {
+            padding: 0;
+        }
+        img.img-responsive {
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row row-eq-height">
+            <div class="col-xs-12 col-md-12">
+            <header class="col-xs-12 col-md-12 navbar navbar-expand-lg navbar-light bg-light" style="position: sticky;">
+                    <a class="navbar-brand" href="{% url 'home' %}" title="Ongame"
+                    style="padding: 0 20px;">
+                        <img src="https://br.ongame.net/static/svg/logo-ongame.svg" alt="images" >
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Alterna navegação">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                  
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+
+                     
+                    </div>
+                    <div>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'accounts:logout' %}" aria-expanded="false">
+                            <button type="button" class="btn btn-outline-danger">Sair da sua conta</button>
+                         </a>
+                        <a href="{% url 'accounts:update' %}" aria-expanded="false">
+                            <button type="button" class="btn btn-outline-danger">Atualizar informações</button>
+                         </a>
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}" aria-expanded="false">
+                            <button type="button" class="btn btn-outline-danger">Entrar na sua conta</button>
+                         </a>
+                        <a href="{% url 'accounts:register' %}" aria-expanded="false">
+                            <button type="button" class="btn btn-outline-danger">Registrar um novo usuário</button>
+                         </a>
+                        
+                    {% endif %}</a></li>
+
+                    </div>
+
+            </header>
+                {% block body %}
+                {% endblock body %}
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $.expr[':'].external = function (obj) {
+            return !obj.href.match(/^mailto\:/)
+                && (obj.hostname != location.hostname)
+                && !obj.href.match(/^javascript\:/)
+                && !obj.href.match(/^$/)
+        };
+        $('a:external').attr('target', '_blank');
+    </script>
+
+</body>
+
+</html>

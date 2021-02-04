@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+ {% block title %} Anuncios {% endblock title %} 
+{% block buttonup %} {% endblock buttonup %} {% block head %} 
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald&display=swap" rel="stylesheet"> 
+<style>
+  .card-body > h2 > a {
+    display: inline-block;
+    width: 100%;
+    padding-left: 10px;
+    position: relative;
+    color: black;
+    transition: all 0.5s ease 0s;
+    font: 400 30px/32px "Oswald";
+	border-left: 10px orange solid;
+    padding-left: 10px;
+  }
+  .tag > p > i {
+    padding: 0 8px;
+  }
+  .tag > a > i {
+    padding: 0 8px;
+  }
+  .article-author-profile-image {
+    width: 50px;
+    height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: cover;
+  }
+  img.article-author-profile-image {
+    border-radius: 35px;
+  }
+.google-auto-placed {
+
+    display: none;
+}
+
+.tag-item > i {
+    margin: 0 10px;
+}
+.tag-item > a > i {
+    margin: 0 10px;
+}
+.tag {
+    font-size: 12px;
+}
+.title-v1 > h3 {
+    font: 400 36px/36px "Oswald";
+    border-left: 10px orange solid;
+    margin: 30px;
+    padding-left: 10px;
+}
+.artigo-lista {
+
+    padding: 10px 0;
+}
+.artigo-publicidade {
+    max-width: 900px;
+}
+</style>
+{% endblock head%}{% block body %} {% load static %} {% load l10n %}
+<div class="container=fluid">
+
+      <div class="container-fluid">
+        <div class="technnology box space-30 row row-eq-height">
+          <div class="col-xs-12 col-md-12">
+            <div class="title-v1">
+              <h3>Ultimas Postagens</h3>
+            </div>
+            {% if request.user.is_active and request.user.is_staff %}
+            <a href="{% url 'threads:threadCreate'%}"><button class="btn btn-outline-success" style="float:right;">Criar nova postagem</button></a>
+            {%endif%}
+            <!-- End title -->
+			<div class='container-fluid'>
+				<div class='row'>
+					<div class="col-xs-12 col-md-12">
+						<div class='container-fluid'>
+                        <hr>
+            				{% for thread in threads  %}
+							<div class='row row-eq-height artigo-lista'>
+                            {% if thread.image %}
+								<div class="col-xs-12 col-md-5" style='background-image:url("{{ thread.image.url }}"); background-size: cover; background-repeat:no-repeat; min-height:200px;'>
+									<div>
+										<a class="images" href="{{ thread.get_absolute_url }}" title="{{ thread.title }}">
+									</div>
+									<a class="images" href="{{ thread.get_absolute_url }}" title="{{ thread.title }}" >
+								</div>
+                            {% endif %}
+								<div class="d-flex flex-grow-1">
+									<div class="card-body">
+										<h2><a href="{{ thread.get_absolute_url }}" title="title" >{{ thread.title }}</a></h2>
+										<div style="margin-bottom: 10px">
+											<a class="avatar" href="#">
+												<img src="{{ thread.author.image.url }}" alt="Profile Image"  class="article-author-profile-image"/>
+											</a>
+											Por <a class="name" href="#" > <b>{{ thread.author.get_full_name }}</b></a>
+										</div>
+										<!-- post-info -->
+										<div class="tag">
+											<div class="container-fluid">
+												<div class="row">
+													<p class="tag-item">
+														<i class="far fa-eye"></i>{{ thread.views }} vezes
+														<span>/</span>														<a class="tag-link" href="#" title="comments"><i class="fa fa-comments"></i>{{ thread.comments.count }} comentários </a>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="d-flex justify-content-between align-items-center">
+											<div class="btn-group">
+												<a href="{{ thread.get_absolute_url }}" title="readMore" class="btn btn-sm btn-outline-secondary read-more" style="width: 100%">Leia este artigo</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+                            <hr>
+							{% endfor %}
+						</div>
+					</div>
+          <nav aria-label="" class="add_top_20">
+					<ul class="pagination pagination-sm">
+						{% if page_obj.has_previous %}
+						<li class="page-item active">
+							<a class="page-link" href="?page=1" >Primeira</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Anterior</a>
+						</li>
+						{% endif %}
+						{% for pages in page_obj.paginator.page_range %}
+						{% if page_obj.number == pages %}
+						<li class="page-item active"><a href="" class="page-link">{{pages}}</a></li>
+						{% else %}
+						<li class="page-item"><a href="?page={{ pages }}" class="page-link">{{pages}}</a></li>
+						{% endif %}
+
+								{% endfor %}
+
+								{% if page_obj.has_next %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{ page_obj.next_page_number }}">Próximo</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Último</a>
+						</li>
+						{% endif %}
+					</ul>
+				</nav>
+				<!-- /pagination -->
+				</div>
+					<!-- End item -->
+			</div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+  {% endblock body %}

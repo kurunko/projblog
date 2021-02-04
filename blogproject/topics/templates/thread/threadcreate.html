@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+ {% block title %} Crie Seu Thread {% endblock title %} 
+{% block buttonup %} {% endblock buttonup %} {% block head %}  {% load static %}
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald&display=swap" rel="stylesheet"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{ form.media.css }}{{ form.media.js }}
+
+<script type="text/javascript" src="{% static 'smart-selects/admin/js/chainedfk.js' %}"></script>
+<script type="text/javascript" src="{% static 'smart-selects/admin/js/chainedm2m.js' %}"></script>
+<script type="text/javascript" src="{% static 'smart-selects/admin/js/bindfields.js' %}"></script>
+<style>
+  .card-body > h2 > a {
+    display: inline-block;
+    width: 100%;
+    padding-left: 10px;
+    position: relative;
+    color: black;
+    transition: all 0.5s ease 0s;
+    font: 400 30px/32px "Oswald";
+	border-left: 10px orange solid;
+    padding-left: 10px;
+  }
+  .tag > p > i {
+    padding: 0 8px;
+  }
+  .tag > a > i {
+    padding: 0 8px;
+  }
+  .article-author-profile-image {
+    width: 50px;
+    height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: cover;
+  }
+  img.article-author-profile-image {
+    border-radius: 35px;
+  }
+.google-auto-placed {
+
+    display: none;
+}
+
+.tag-item > i {
+    margin: 0 10px;
+}
+.tag-item > a > i {
+    margin: 0 10px;
+}
+.tag {
+    font-size: 12px;
+}
+.title-v1 > h3 {
+    font: 400 36px/36px "Oswald";
+    border-left: 10px orange solid;
+    margin: 30px;
+    padding-left: 10px;
+}
+.artigo-lista {
+
+    padding: 10px 0;
+}
+.artigo-publicidade {
+    max-width: 900px;
+}
+</style>
+{% endblock head%}{% block body %} {% load l10n %} 
+<div class="container=fluid">
+
+      <div class="container-fluid">
+        <div class="technnology box space-30 row row-eq-height">
+          <div class="col-xs-12 col-md-12">
+            <div class="title-v1">
+              <h3>Cie sua postagem</h3>
+            </div>
+            <!-- End title -->
+			<div class='container-fluid'>
+				<div class='row'>
+					<div class="col-xs-12 col-md-12">
+						{% if request.user.is_active and request.user.is_staff %}					
+							<main class="form-signin">
+								<form method="post" action="#">
+									{% if form.errors %}
+										<div class="alert alert-danger" role="alert">
+											Há erros no seu formulário. Revise-os e tente novamente.
+											{{ form.non_field_errors }}
+											{% for hidden_field in form.hidden_fields %}
+												{{ hidden_field.errors }}
+												{{ hidden_field }}
+											{% endfor %}
+										</div>
+									
+									{% endif %}
+									{% csrf_token %}
+									
+																		{{ form.as_p}}
+									<button class="w-100 btn btn-lg btn-primary" type="submit">Postar Thread</button>
+								</form>
+							</main>
+						{% else %}
+									Você não deveria estar aqui. Cadê o seus pais?
+						{% endif %}
+					</div>
+
+				</div>
+					<!-- End item -->
+			</div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+  {% endblock body %}
