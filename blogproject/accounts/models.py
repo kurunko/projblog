@@ -61,6 +61,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         managed = True
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+    
+
 
 
 

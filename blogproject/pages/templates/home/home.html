@@ -101,7 +101,7 @@ a article {
                                             <a href="{% url 'threads:threadEdit' thread.game thread.category thread.slug%}"><button class="btn btn-outline-success" style="float:right;">Editar Postagem</button></a>
                                         {%endif%}
                                         {% if request.user.is_staff %}
-                                            <a href="{% url 'threads:threadEdit' thread.game thread.category thread.slug%}"><button class="btn btn-outline-success" style="float:right;">Moderar Postagem</button></a>
+                                            <a href="{% url 'threads:threadModerate' thread.game thread.category thread.slug%}"><button class="btn btn-outline-success" style="float:right;">Moderar Postagem</button></a>
                                         {%endif%}
                                     </p>
                                 </div>
@@ -110,9 +110,7 @@ a article {
                     </a>
                 {% endfor %}
             </div>
-            {% if request.user.is_active and request.user.is_staff %}
-                <a href="{% url 'threads:threadCreate'%}"><button class="btn btn-outline-success" style="float:right;">Criar nova postagem</button></a>
-            {%endif%}
+
 
 		</div>
 

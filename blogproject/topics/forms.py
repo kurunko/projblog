@@ -1,4 +1,5 @@
 # Core Django imports.
+from django.db.models.fields import BooleanField
 from django.forms import ModelForm, TextInput, EmailInput, Textarea, FileInput,Select
 from django import forms
 from django.contrib.auth.models import User
@@ -24,18 +25,6 @@ class ThreadCreateForm(forms.ModelForm):
                                                           }
                                       )
                                     )
-    # childrenCategory = forms.ModelChoiceField(queryset=ThreadCategory.objects.all(),
-    #                                   empty_label="Select Category",
-    #                                   widget=forms.Select(attrs=
-    #                                                       {
-    #                                                           "class": "form-control selectpicker",
-    #                                                           "type": "text",
-    #                                                           "name": "thread-category",
-    #                                                           "id": "threadCategory",
-    #                                                           "data-live-search": "true"
-    #                                                       }
-    #                                   )
-    #                                 )
 
 
     class Meta:
@@ -103,6 +92,25 @@ class ThreadCreateForm(forms.ModelForm):
                              ),
         }
 
+class ThreadModerateForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Thread
+        fields = [
+            "isStickied",
+            "locked", 
+            "flagged", 
+            "reason", 
+        ]
+        labels  = {
+            "isStickied": "Em Destaque?",
+            "locked": "Está Fechado?", 
+            "flagged": "É Spam?", 
+            "reason":"Motivo", 
+        }
+
+
 
 
 class ThreadCommentForm(ModelForm):
@@ -158,91 +166,3 @@ class UserUpdateForm(forms.ModelForm):
             }),
         }
 
-
-# class ProfileUpdateForm(forms.ModelForm):
-#     """
-#        Creates form for user to update their Profile.
-#     """
-#     class Meta:
-#         model = CustomUser
-#         fields = [
-#                   'image', 'banner_image', 'job_title', 'bio', 'address',
-#                   'city', 'country', 'zip_code', 'twitter_url', 'github_url',
-#                   'facebook_url', 'instagram_url'
-#                   ]
-
-#         widgets = {
-
-#             'job_title': forms.TextInput(attrs={
-#                 'name': "job-title",
-#                 'class': "form-control",
-#                 'id': "job-title"
-#             }),
-
-#             'bio': forms.Textarea(attrs={
-#                 'name': "bio",
-#                 'class': "form-control",
-#                 'id': "bio", "rows": "5",
-#             }),
-
-#             'address': forms.TextInput(attrs={
-#                 'name': "address",
-#                 'class': "form-control",
-#                 'id': "address"
-#             }),
-
-#             'city': forms.TextInput(attrs={
-#                 'name': "city",
-#                 'class': "form-control",
-#                 'id': "city"
-#             }),
-
-#             'country': forms.TextInput(attrs={
-#                 'name': "country",
-#                 'class': "form-control",
-#                 'id': "country"
-#             }),
-
-#             'zip_code': forms.TextInput(attrs={
-#                 'name': "zip-code",
-#                 'class': "form-control",
-#                 'id': "zip-code"
-#             }),
-
-#             'image': forms.FileInput(attrs={
-#                 "class": "form-control clearablefileinput",
-#                 "type": "file",
-#                 "id": "profileImage",
-#             }),
-
-#             'banner_image': forms.FileInput(attrs={
-#                 "class": "form-control clearablefileinput",
-#                 "type": "file",
-#                 "id": "bannerImage",
-#             }),
-
-#             'facebook_url': forms.TextInput(attrs={
-#                 'name': "facebook-account-url",
-#                 'class': "form-control",
-#                 'id': "github-account-url"
-#             }),
-
-#             'twitter_url': forms.TextInput(attrs={
-#                 'name': "twitter-account-url",
-#                 'class': "form-control",
-#                 'id': "twitter-account-url"
-#             }),
-
-#             'instagram_url': forms.TextInput(attrs={
-#                 'name': "instagram-account-url",
-#                 'class': "form-control",
-#                 'id': "instagram-account-url"
-#             }),
-
-#             'github_url': forms.TextInput(attrs={
-#                 'name': "github-account-url",
-#                 'class': "form-control",
-#                 'id': "github-account-url"
-#             }),
-
-#         }

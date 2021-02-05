@@ -1,16 +1,10 @@
-from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
-from django.http.response import HttpResponseForbidden, HttpResponseRedirect
 from django.urls.base import reverse_lazy
 from django.views import generic
-from django.views.generic import CreateView
 from django.contrib.auth import login, authenticate, logout
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import FormMixin
 from django.views.generic.list import ListView
 
 
@@ -18,7 +12,6 @@ from django.views.generic.list import ListView
 
 from .models import CustomUser
 from topics.models import ThreadComment, Thread
-from topics.forms import ThreadCommentForm
 
 from .forms import CustomUserCreationForm, FlagAsSpamForm, UserUpdateForm
 
@@ -65,12 +58,24 @@ class ManageView(ListView):
     template_name = "user/adm/manage.html"
 
     def get_context_data(self, **kwargs):
+        kwargs['threads'] = Thread.objects.all
         context = super().get_context_data(**kwargs)
         return context
 
 
 
-class MarkAsSpamView(LoginRequiredMixin, generic.UpdateView):
+class MarkAsSpamThreadView(LoginRequiredMixin, generic.UpdateView):
+    model = Thread
+    template_name = 'user/adm/markasspam.html'
+    fields = ['flagged']
+    success_url = "/noticias"
+    pk_field = 'id'
+    pk_url_kwarg = 'id'
+
+    def get_object(self):
+         return Thread.objects.get(slug=self.kwargs['slug'])
+
+class MarkAsSpamCommentView(LoginRequiredMixin, generic.UpdateView):
     model = ThreadComment
     template_name = 'user/adm/markasspam.html'
     fields = ['flagged']
@@ -79,4 +84,4 @@ class MarkAsSpamView(LoginRequiredMixin, generic.UpdateView):
     pk_url_kwarg = 'id'
 
     def get_object(self):
-            return self.request.user
+         return Thread.objects.get(id=self.kwargs['id'])

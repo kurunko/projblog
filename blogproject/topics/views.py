@@ -4,7 +4,6 @@ import operator
 
 # Core Django imports.
 from django.contrib import messages
-from django.db.models import Q, Count
 from django.views.generic import (
     DetailView,
     ListView,
@@ -20,14 +19,14 @@ from .models import (
     )
 from .forms import (
                         ThreadCommentForm,
-                        ThreadCreateForm
+                        ThreadCreateForm,
+                        ThreadModerateForm
     )
 from django.http import HttpResponseRedirect
 
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden
 from django.views.generic.edit import FormMixin
 
@@ -95,6 +94,16 @@ class ThreadCreateView(CreateView):
 class ThreadEditView(UpdateView):
     model = Thread
     form_class = ThreadCreateForm
+    template_name = 'thread/threadedit.html'
+
+    def get_object(self):
+            return Thread.objects.get(slug=self.kwargs['slug'])
+
+
+
+class ThreadModerateView(UpdateView):
+    model = Thread
+    form_class = ThreadModerateForm
     template_name = 'thread/threadedit.html'
 
     def get_object(self):

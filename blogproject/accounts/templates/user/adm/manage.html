@@ -61,29 +61,57 @@
     max-width: 900px;
 }
 </style>
+
+
 {% endblock head%}{% block body %} {% load static %} {% load l10n %}
+{% if request.user.is_staff %}
 <div class="container=fluid">
 
       <div class="container-fluid">
         <div class="technnology box space-30 row row-eq-height">
           <div class="col-xs-12 col-md-12">
             <div class="title-v1">
-              <h3>Ultimos Comentários</h3>
+              <h3>Ultimos Ativos</h3>
             </div>
-            {% if request.user.is_active and request.user.is_staff %}
-            <a href="{% url 'threads:threadCreate'%}"><button class="btn btn-outline-success" style="float:right;">Criar nova postagem</button></a>
-            {%endif%}
+
             <!-- End title -->
 			<div class='container-fluid'>
 				<div class='row'>
 					<div class="col-xs-12 col-md-12">
 						<div class='container-fluid'>
                         <hr>
+            				{% for thread in threads  %}
+							<div class='row row-eq-height artigo-lista'>
+								<div class="d-flex flex-grow-1">
+									<div class="card-body">
+										<h2><a href="{% url 'accounts:spamThread' thread.slug%}" title="title" >{{ thread.title }}</a></h2>
+										<div>{{ thread.message|safe }}</div>
+										<div style="margin-bottom: 10px">
+											<a class="avatar" href="#">
+												<img src="{{ thread.author.image.url }}" alt="Profile Image"  class="article-author-profile-image"/>
+											</a>
+											Por <a class="name" href="#" > <b>{{ thread.author.get_full_name }}</b></a>
+										</div>
+										<!-- post-info -->
+
+										<div class="d-flex justify-content-between align-items-center">
+											<div class="btn-group">
+												<a href="{% url 'accounts:spamThread' thread.slug%}" title="SeeMore" class="btn btn-sm btn-outline-secondary read-more" style="width: 100%">Ver mais</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+                            <hr>
+							{% endfor %}
             				{% for comment in comments  %}
 							<div class='row row-eq-height artigo-lista'>
 								<div class="d-flex flex-grow-1">
 									<div class="card-body">
 										<h2><a href="{{ comment.get_absolute_url }}" title="title" >{{ comment.comment }}</a></h2>
+																				<div>{{ comment.comment|safe }}</div>
+
 										<div style="margin-bottom: 10px">
 											<a class="avatar" href="#">
 												<img src="{{ comment.author.image.url }}" alt="Profile Image"  class="article-author-profile-image"/>
@@ -94,7 +122,7 @@
 
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
-												<a href="{% url 'accounts:spam' comment.id%}" title="SeeMore" class="btn btn-sm btn-outline-secondary read-more" style="width: 100%">Ver mais</a>
+												<a href="{% url 'accounts:spamComment' comment.id%}" title="SeeMore" class="btn btn-sm btn-outline-secondary read-more" style="width: 100%">Ver mais</a>
 											</div>
 										</div>
 									</div>
@@ -144,7 +172,12 @@
       </div>
 
 
+  {% else %}
+{% include 'utils/isstaff.html' %}
 
+
+{% endif %}
 
 
   {% endblock body %}
+

@@ -1,10 +1,10 @@
-
 {% block body %}
+{% if request.user.is_staff %}
 {% load static %}
 <html lang="en"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Crie Sua Conta | Viviré Media Network</title>
+    <title>Moderação de Comentários</title>
 
     
 
@@ -120,5 +120,9 @@ input#id_checkBox {
 </body></html>
 
 
+  {% else %}
+{% include 'utils/isstaff.html' %}
 
+
+{% endif %}
 {% endblock body %}

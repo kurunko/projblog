@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 
-from .views import CustomUserCreationView, CustomUserLoginView, CustomUserUpdateView, ManageView, MarkAsSpamView
+from .views import CustomUserCreationView, CustomUserLoginView, CustomUserUpdateView, ManageView, MarkAsSpamThreadView, MarkAsSpamCommentView
 
 app_name = 'accounts'
 
@@ -13,7 +13,7 @@ urlpatterns = [
     path('esqueci-a-senha/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('atualizar/', CustomUserUpdateView.as_view(), name='update'),
     path('gerenciar/', ManageView.as_view(), name='manage'),
-    path('gerenciar/<pk>', MarkAsSpamView.as_view(), name='spam'),
-
+    path('gerenciar/thread/<slug>', MarkAsSpamThreadView.as_view(), name='spamThread'),
+    path('gerenciar/comentario/<pk>', MarkAsSpamCommentView.as_view(), name='spamComment'),
 
 ]
