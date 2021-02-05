@@ -251,7 +251,7 @@ ul.breadcrumb > li > a {
 <a href="{% url 'threads:threadList'%}">Voltar</a>
         <div class="container space-20 space-padding-tb-20">
              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
                 <li class="breadcrumb-item">{{article.game}}</li>
                 <li class="breadcrumb-item">{{article.category}}</li>
                 <li class="breadcrumb-item active"><a href="#">{{article.title}}</a></li>
@@ -279,13 +279,11 @@ ul.breadcrumb > li > a {
 											<div class="container-fluid">
 												<div class="row">
 													<p class="tag-item">
-														<i class="fab fa-readme"></i>{{ article.read_time }} min{{ article.read_time|pluralize }} 
-														<span> / </span>
 														<i class="far fa-eye"></i>{{ article.views }} vezes
 														<span>/</span>
-														<i class="far fa-clock"></i>Há {{article.date_published|timesince }} 
+														<i class="far fa-clock"></i>Há {{article.createdAt|timesince }} 
 														<span>  /</span>
-														<a class="tag-link" href="#" title="comments"><i class="fa fa-comments"></i>{{ article.comments.count }} comentários </a>
+														<a class="tag-link" href="#comentarios" title="comments"><i class="fa fa-comments"></i>{{ article.comments.count }} comentários </a>
 													</p>
 												</div>
 											</div>
@@ -326,7 +324,7 @@ ul.breadcrumb > li > a {
                     </div>
                     <!-- End signle-post -->
 					<hr>
-									<h1 class='titulo-artigo'>COMENTÁRIOS</h1>
+									<h2 id="comentarios" class='titulo-artigo'>COMENTÁRIOS</h1>
                   {% if user.is_authenticated%}
                   <form method="post">
 				{% if form.errors %}

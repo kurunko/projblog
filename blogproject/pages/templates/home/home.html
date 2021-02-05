@@ -1,5 +1,127 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<meta http-equiv="refresh" content="1; URL='/noticias'"/>
-{% endblock head %}
+ {% block title %} Anuncios {% endblock title %} 
+{% block buttonup %} {% endblock buttonup %} {% block head %} 
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald&display=swap" rel="stylesheet"> 
+<style>
+  h2 {
+    display: inline-block;
+    width: 100%;
+    padding-left: 10px;
+    position: relative;
+    color: black;
+    transition: all 0.5s ease 0s;
+    font: 400 20px/20px "Open Sans",sans-serif;
+	border-left: 10px orange solid;
+    padding-left: 10px;
+  }
+  .tag > p > i {
+    padding: 0 8px;
+  }
+  .tag > a > i {
+    padding: 0 8px;
+  }
+  .article-author-profile-image {
+    width: 20px;
+    height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    object-fit: cover;
+  }
+  img.article-author-profile-image {
+    border-radius: 35px;
+  }
+.google-auto-placed {
+
+    display: none;
+}
+
+.tag-item > i {
+    margin: 0 10px;
+}
+.tag-item > a > i {
+    margin: 0 10px;
+}
+.tag-item {
+    margin: 10px;
+}
+.tag {
+    font-size: 12px;
+}
+.title-v1 > h3 {
+    font: 400 36px/36px "Open Sans",sans-serif;
+    border-left: 10px orange solid;
+    margin: 30px;
+    padding-left: 10px;
+}
+.artigo-lista {
+
+    padding: 10px 0;
+}
+.artigo-publicidade {
+    max-width: 900px;
+}
+a article {
+    color:#000;
+    text-decoration: none;
+}
+.tag-edit {
+    margin-right: 22px;
+    flex: auto;
+}
+</style>
+{% endblock head%}{% block body %} {% load static %} {% load l10n %}
+<div class="container=fluid">
+    <div class="container-fluid">
+        <div class="row row-eq-height" style="background:#f8f9fa;">
+            <div class="col-xs-12 col-md-8">
+                {% for thread in threads  %}
+                    <a class="images" href="{{ thread.get_absolute_url }}" title="{{ thread.title }}">
+                        <article style="background:#fff;border: 1px solid rgba(150, 150, 150, .2); margin:10px;border-radius:5px;">
+                            <div style="margin: 5px;">
+                                <img src="{{ thread.author.image.url }}" alt="Profile Image"  class="article-author-profile-image"/>
+                                Por <b>{{ thread.author.get_full_name }}</b>
+                            </div> 
+                            <h2>{{ thread.title }}</h2>
+                            {% if thread.image %}
+                                <img src="{{ thread.image.url }}" class="img-responsive">
+                            {% endif %}
+
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <p class="tag-item">
+                                        <i class="far fa-eye"></i>{{ thread.views }} vezes 
+                                        <span>/</span>
+                                        <i class="fa fa-comments"></i>{{ thread.comments.count }} comentários
+                                    </p>
+                                    <p class="tag-edit" >
+                                        {% if request.user == thread.author or request.user.is_staff %}
+                                            <a href="{% url 'threads:threadEdit' thread.game thread.category thread.slug%}"><button class="btn btn-outline-success" style="float:right;">Editar Postagem</button></a>
+                                        {%endif%}
+                                        {% if request.user.is_staff %}
+                                            <a href="{% url 'threads:threadEdit' thread.game thread.category thread.slug%}"><button class="btn btn-outline-success" style="float:right;">Moderar Postagem</button></a>
+                                        {%endif%}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </a>
+                {% endfor %}
+            </div>
+            {% if request.user.is_active and request.user.is_staff %}
+                <a href="{% url 'threads:threadCreate'%}"><button class="btn btn-outline-success" style="float:right;">Criar nova postagem</button></a>
+            {%endif%}
+
+		</div>
+
+    </div>
+</div>
+
+
+
+
+
+
+  {% endblock body %}

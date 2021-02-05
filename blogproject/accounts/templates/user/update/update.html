@@ -87,7 +87,7 @@ input#id_checkBox {
 				<h1 class="h3 mb-3 fw-normal">Tenha acesso gratuito a todos os jogos da Ongame!</h1>
   		{% if user.is_authenticated %}
 		  <main class="form-signin">
-			<form method="post" action="">
+			<form method="post" action="" enctype='multipart/form-data'>
 				{% if form.errors %}
 					<div class="alert alert-danger" role="alert">
 					Há erros no seu formulário. Revise-os e tente novamente.

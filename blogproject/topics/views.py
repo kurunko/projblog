@@ -9,7 +9,7 @@ from django.views.generic import (
     DetailView,
     ListView,
 )
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 
 # Blog application imports.
@@ -92,3 +92,10 @@ class ThreadCreateView(CreateView):
     template_name = 'thread/threadcreate.html'
 
 
+class ThreadEditView(UpdateView):
+    model = Thread
+    form_class = ThreadCreateForm
+    template_name = 'thread/threadedit.html'
+
+    def get_object(self):
+            return Thread.objects.get(slug=self.kwargs['slug'])
