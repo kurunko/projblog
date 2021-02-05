@@ -80,7 +80,7 @@
 			<div class='container-fluid'>
 				<div class='row'>
 					<div class="col-xs-12 col-md-12">
-						{% if request.user.is_active and request.user.is_staff %}					
+						{% if request.user.is_is_authenticated %}					
 							<main class="form-signin">
 								<form method="post" action="#">
 									{% if form.errors %}
